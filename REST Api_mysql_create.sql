@@ -17,10 +17,7 @@ CREATE TABLE `Categories` (
 CREATE TABLE `Authors` (
 	`ID` int NOT NULL AUTO_INCREMENT,
 	`Name` TEXT NOT NULL,
-	`Avatar` blob NOT NULL,
-	`Address` TEXT NOT NULL,
-	`Phone` set NOT NULL,
-	`E-mail` TEXT NOT NULL,
+	`Avatar` TEXT NOT NULL,
 	`Bio` TEXT NOT NULL,
 	`Posts` json NOT NULL,
 	PRIMARY KEY (`ID`)
