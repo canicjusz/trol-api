@@ -1,0 +1,6 @@
+GET /api/posts
+GET /api/posts/:id
+GET /api/posts/:id/related
+GET /api/posts/popular
+GET /api/categories
+GET /api/bio
