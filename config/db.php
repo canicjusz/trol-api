@@ -3,7 +3,7 @@
 class DB {
         private $host = 'localhost';
         private $user = 'root';
-        private $pass = 'root';
+        private $pass = '';
         private $dbname = 'rest_api';
 
         public function connect() {

@@ -8,9 +8,9 @@ require '../config/db.php';
 
 $app = AppFactory::create();
 
-$app->setBasePath("/api/public/index.php");
+$app->setBasePath("/api");
 
-$app->get('/hello/{name}', function (Request $request, Response $response, array $args) {
+$app->get('/posts', function (Request $request, Response $response, array $args) {
     $sql = "SELECT * FROM posts";
 
     $db = new DB();
