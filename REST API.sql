@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE `Authors` (
-    `ID` INTEGER NOT NULL AUTO_INCREMENT,
+    `ID` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT ,
     `Name` VARCHAR(100) NOT NULL,
     `Avatar` VARCHAR(100) NOT NULL,
     `Bio` TEXT NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE `Authors` (
 
 -- CreateTable
 CREATE TABLE `Categories` (
-    `ID` INTEGER NOT NULL AUTO_INCREMENT,
+    `ID` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT ,
     `Name` TEXT NOT NULL,
 
     PRIMARY KEY (`ID`)
@@ -18,7 +18,7 @@ CREATE TABLE `Categories` (
 
 -- CreateTable
 CREATE TABLE `Posts` (
-    `ID` INTEGER NOT NULL AUTO_INCREMENT,
+    `ID` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT ,
     `Date` DATE NOT NULL,
     `Content` TEXT NOT NULL,
     `Content-shortened` VARCHAR(200) NOT NULL,
@@ -30,18 +30,30 @@ CREATE TABLE `Posts` (
 
 -- CreateTable
 CREATE TABLE `_AuthorsToPosts` (
-    `A` INTEGER NOT NULL,
-    `B` INTEGER NOT NULL,
+    `Authors` INTEGER NOT NULL,
+    `Posts` INTEGER NOT NULL,
 
-    UNIQUE INDEX `_AuthorsToPosts_AB_unique`(`A`, `B`),
-    INDEX `_AuthorsToPosts_B_index`(`B`)
+    UNIQUE INDEX `_AuthorsToPosts_AuthorsPosts_unique`(`Authors`, `Posts`),
+    INDEX `_AuthorsToPosts_Posts_index`(`Posts`)
+);
+
+-- CreateTable
+CREATE TABLE `_CategoriesToPosts` (
+    `Categories` INTEGER NOT NULL,
+    `Posts` INTEGER NOT NULL,
+
+    UNIQUE INDEX `_CategoriesToPosts_CategoriesPosts_unique`(`Categories`, `Posts`),
+    INDEX `_CategoriesToPosts_Posts_index`(`Posts`)
 );
 
 -- AddForeignKey
-ALTER TABLE `Posts` ADD CONSTRAINT `Posts_categoryID_fkey` FOREIGN KEY (`categoryID`) REFERENCES `Categories`(`ID`);
+ALTER TABLE `_AuthorsToPosts` ADD FOREIGN KEY (`Authors`) REFERENCES `Authors`(`ID`);
 
 -- AddForeignKey
-ALTER TABLE `_AuthorsToPosts` ADD FOREIGN KEY (`A`) REFERENCES `Authors`(`ID`);
+ALTER TABLE `_AuthorsToPosts` ADD FOREIGN KEY (`Posts`) REFERENCES `Posts`(`ID`);
 
 -- AddForeignKey
-ALTER TABLE `_AuthorsToPosts` ADD FOREIGN KEY (`B`) REFERENCES `Posts`(`ID`);
+ALTER TABLE `_CategoriesToPosts` ADD FOREIGN KEY (`Categories`) REFERENCES `Categories`(`ID`);
+
+-- AddForeignKey
+ALTER TABLE `_CategoriesToPosts` ADD FOREIGN KEY (`Posts`) REFERENCES `Posts`(`ID`);
