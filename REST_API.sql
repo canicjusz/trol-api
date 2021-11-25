@@ -22,7 +22,6 @@ CREATE TABLE `Posts` (
     `Date` DATE NOT NULL,
     `Content` TEXT NOT NULL,
     `Content_shortened` VARCHAR(200) NOT NULL,
-    `CategoryID` INTEGER NOT NULL,
     `Viewcount` INTEGER UNSIGNED NOT NULL,
 
     PRIMARY KEY (`ID`)
