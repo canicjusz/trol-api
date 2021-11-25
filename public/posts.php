@@ -5,6 +5,14 @@ use Slim\Factory\AppFactory;
 
 function getPostsFromDatabase($query){
     //nie wiem czemu ale to nie dziala jak jest w global scope i musialem tutaj to dac
+    // ------------------------------------------------------------------------------
+    // bo zmienne z global scope nie są dostępne wewnątrz funkcji, 
+    // dopóki nie określisz, że interpreter PHP ma szukać zmiennej poza funkcją,
+    // a można to zrobić poprzez `global $nazwa_zmiennej`,
+    // ale ogólnie zmienne globalne nie są dobrą praktyką, choć mają pewne zalety ;)
+    // https://www.php.net/manual/en/language.variables.scope.php
+    // - N.
+    // ------------------------------------------------------------------------------
     $query_every_post = "SELECT d.Date AS PostDate, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, e.Bio, f.Name AS CategoryTitle
 from (SELECT a.Posts, a.Categories, b.Authors from _categoriestoposts a join _authorstoposts b ON b.Posts=a.Posts) c
 JOIN posts d ON d.ID=c.Posts JOIN authors e ON e.ID=c.Authors JOIN categories f ON f.ID=c.Categories";
