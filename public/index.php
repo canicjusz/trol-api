@@ -5,14 +5,8 @@ use Slim\Factory\AppFactory;
 
 require '../vendor/autoload.php';
 $app = AppFactory::create();
-require './posts.php';
-
-
 $app->setBasePath("/api");
-
-$app->get('/categories', function (Request $request, Response $response, array $args) {
-    $response->getBody()->write("all categories");
-    return $response;
-});
+require './categories.php';
+require './posts.php';
 
 $app->run();

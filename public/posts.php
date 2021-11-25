@@ -3,12 +3,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 
-require '../vendor/autoload.php';
-//require '../config/db.php';
-
-$app = AppFactory::create();
-
-$app->setBasePath("/api");
 $app->get('/posts', function (Request $request, Response $response, array $args) {
     $response->getBody()->write("all posts");
     // $sql = "SELECT * FROM posts";
