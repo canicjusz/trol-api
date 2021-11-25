@@ -5,8 +5,11 @@ use Slim\Factory\AppFactory;
 
 require '../vendor/autoload.php';
 require '../config/db.php';
+
 $app = AppFactory::create();
+
 $app->setBasePath("/api");
+
 require './categories.php';
 require './posts.php';
 
