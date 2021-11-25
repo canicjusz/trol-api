@@ -4,26 +4,15 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 
 require '../vendor/autoload.php';
-require '../config/db.php';
-
 $app = AppFactory::create();
+require './posts.php';
+
 
 $app->setBasePath("/api");
 
-$app->get('/posts', function (Request $request, Response $response, array $args) {
-    $sql = "SELECT * FROM posts";
-
-    $db = new DB();
-    $conn = $db->connect();
-
-    $stmt = $conn->query($sql);
-    $posts = $stmt->fetchALL(PDO::FETCH_OBJ);
-
-    $db = null;
-    $response->getBody()->write(json_encode($posts));
-    return $response
-        ->withHeader('content-type', 'application/json')
-        ->withStatus(200);
+$app->get('/categories', function (Request $request, Response $response, array $args) {
+    $response->getBody()->write("all categories");
+    return $response;
 });
 
 $app->run();
