@@ -15,3 +15,14 @@ class DB {
         }
 
 }
+
+function getFromDatabase($query){
+    $db = new DB();
+    $conn = $db->connect();
+
+    $stmt = $conn->query($query);
+
+    // nie wiem czy to potrzebne ale niech zostanie
+    $db = null;
+    return $stmt->fetchALL(PDO::FETCH_OBJ);
+}

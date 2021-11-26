@@ -20,8 +20,10 @@ CREATE TABLE `Categories` (
 CREATE TABLE `Posts` (
     `ID` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT ,
     `Date` DATE NOT NULL,
+    `Title` VARCHAR(100) NOT NULL,
     `Content` TEXT NOT NULL,
     `Content_shortened` VARCHAR(200) NOT NULL,
+    `Background` VARCHAR(100) NOT NULL,
     `Viewcount` INTEGER UNSIGNED NOT NULL,
 
     PRIMARY KEY (`ID`)
