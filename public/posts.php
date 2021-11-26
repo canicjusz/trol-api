@@ -37,7 +37,6 @@ $app->get('/posts', function (Request $request, Response $response, array $args)
 
 $app->get('/posts/popular', function (Request $request, Response $response, array $args) {
     $posts = getPostsFromDatabase(" ORDER BY d.Viewcount DESC LIMIT 0, 5");
-
     $response->getBody()->write(json_encode($posts));
     return $response
         ->withHeader('content-type', 'application/json')
@@ -46,13 +45,21 @@ $app->get('/posts/popular', function (Request $request, Response $response, arra
 
 $app->get('/posts/{id}', function (Request $request, Response $response, array $args) {
     $id = $args['id'];
-    $post = getPostsFromDatabase(" WHERE d.ID=$id");
-
+    $db_response = getPostsFromDatabase(" WHERE d.ID=$id");
+    if(count($db_response)==1){
+    $post=$db_response[0];
     $response->getBody()->write(json_encode($post));
     return $response
         ->withHeader('content-type', 'application/json')
         ->withStatus(200);
-});
+    
+  } else{
+    $response->getBody()->write(json_encode(["status" => "404", "message" => "Post not found"]));
+    return $response
+        ->withHeader('content-type', 'application/json')
+        ->withStatus(404);
+
+  } });
 
 $app->get('/posts/{id}/related', function (Request $request, Response $response, array $args) {
     $id = $args['id'];
@@ -62,12 +69,7 @@ $app->get('/posts/{id}/related', function (Request $request, Response $response,
 
     $db = null;
 
-    $posts = getPostsFromDatabase(" WHERE f.Name='$category'");
-
-    $index = array_search($currPost, $posts);
-
-    unset($posts[$index]);
-
+    $posts = getPostsFromDatabase(" WHERE f.Name='$category' AND NOT d.ID=$id");
     // trza usunac ten post co juz jest
     $response->getBody()->write(json_encode($posts));
     return $response
