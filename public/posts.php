@@ -1,32 +1,32 @@
 <?php
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Slim\Factory\AppFactory;
 
 $joinedTables = "(SELECT a.Posts, a.Categories, b.Authors from _categoriestoposts a join _authorstoposts b ON b.Posts=a.Posts) c JOIN posts d ON d.ID=c.Posts JOIN authors e ON e.ID=c.Authors JOIN categories f ON f.ID=c.Categories";
 
-$app->get('/posts', function (Request $request, Response $response, array $args) {
+$app->get('/posts', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
     global $joinedTables;
     $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from " . $joinedTables;
     $posts = getFromDatabase($query);
     
-    $response->getBody()->write(json_encode($posts));
+    $response->getBody()->write(json_encode(["status" => "200", "json" => $posts]));
     return $response
         ->withHeader('content-type', 'application/json')
         ->withStatus(200);
 });
 
-$app->get('/posts/popular', function (Request $request, Response $response, array $args) {
+$app->get('/posts/popular', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
     $query = "SELECT Date AS PostDate, Title, Background from posts ORDER BY Viewcount DESC LIMIT 5";
     $posts = getFromDatabase($query);
 
-    $response->getBody()->write(json_encode($posts));
+    $response->getBody()->write(json_encode(["status" => "200", "json" => $posts]));
     return $response
         ->withHeader('content-type', 'application/json')
         ->withStatus(200);
 });
 
-$app->get('/posts/{id}', function (Request $request, Response $response, array $args) {
+$app->get('/posts/{id}', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
     $id = $args['id'];
     global $joinedTables;
     $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from " . $joinedTables . " WHERE d.ID=$id";
@@ -34,7 +34,7 @@ $app->get('/posts/{id}', function (Request $request, Response $response, array $
 
     if(count($db_response) == 1){
         $post=$db_response[0];
-        $response->getBody()->write(json_encode($post));
+        $response->getBody()->write(json_encode(["status" => "200", "json" => $post]));
         return $response
             ->withHeader('content-type', 'application/json')
             ->withStatus(200);
@@ -46,7 +46,7 @@ $app->get('/posts/{id}', function (Request $request, Response $response, array $
     }
 });
 
-$app->get('/posts/{id}/related', function (Request $request, Response $response, array $args) {
+$app->get('/posts/{id}/related', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
     $id = $args['id'];
 
     $queryCategoriesId = "SELECT Categories FROM `_categoriestoposts` WHERE posts=$id";
@@ -71,7 +71,7 @@ $app->get('/posts/{id}/related', function (Request $request, Response $response,
             $posts = getFromDatabase($queryPosts);
         }
     
-        $response->getBody()->write(json_encode($posts ?? []));
+        $response->getBody()->write(json_encode(["status" => "200", "json" => $posts ?? []]));
         return $response
             ->withHeader('content-type', 'application/json')
             ->withStatus(200);
