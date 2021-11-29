@@ -6,15 +6,16 @@ use \Firebase\JWT\JWT;
 
 $secret = "supersecret";
  $app->add(new Tuupola\Middleware\JwtAuthentication([
-     "path" => ["/api/posts", "/api/categories"], 
-     "algorithm" => ["HS256"],
-     "secret" => $secret,
-     "error" => function ($response, $arguments) {
-         $data["status"] = "401";
-         $data["message"] = $arguments["message"];
-         return $response
-             ->withHeader("Content-Type", "application/json")
-             ->getBody()->write(json_encode($data));
+    "secure" => false,
+    "path" => ["/api/posts", "/api/categories"], 
+    "algorithm" => ["HS256"],
+    "secret" => $secret,
+    "error" => function ($response, $arguments) {
+        $data["status"] = "401";
+        $data["message"] = $arguments["message"];
+        return $response
+            ->withHeader("Content-Type", "application/json")
+            ->getBody()->write(json_encode($data));
      }
  ]));
 
