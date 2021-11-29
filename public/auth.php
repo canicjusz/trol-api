@@ -4,9 +4,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Slim\Factory\AppFactory;
 use \Firebase\JWT\JWT;
 
-$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-$secret = $_ENV['SECRET'];
+$secret = "supersecret";
  $app->add(new Tuupola\Middleware\JwtAuthentication([
      "path" => ["/api/posts", "/api/categories"], 
      "algorithm" => ["HS256"],
