@@ -16,6 +16,20 @@ $app->get('/posts', function (ServerRequestInterface $request, ResponseInterface
         ->withStatus(200);
 });
 
+$app->get('/posts/page/{num}', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
+    global $joinedTables;
+    $page_num = $args['num'];
+    $posts_per_page = 5;
+    $commencing_post = $posts_per_page * ($page_num - 1);
+    $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from " . $joinedTables . " WHERE d.ID > $commencing_post LIMIT $posts_per_page";
+    $posts = getFromDatabase($query);
+    
+    $response->getBody()->write(json_encode(["status" => "200", "json" => $posts]));
+    return $response
+        ->withHeader('content-type', 'application/json')
+        ->withStatus(200);
+});
+
 $app->get('/posts/popular', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
     $query = "SELECT Date AS PostDate, Title, Background from posts ORDER BY Viewcount DESC LIMIT 5";
     $posts = getFromDatabase($query);
