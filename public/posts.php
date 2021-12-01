@@ -97,3 +97,14 @@ $app->get('/posts/{id}/related', function (ServerRequestInterface $request, Resp
     }
 });
   
+$app->get("/posts/search/{keyword}", function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
+$keyword = $args['keyword'];
+global $joinedTables;
+$query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from " . $joinedTables . " WHERE d.Title LIKE '%" . $keyword ."%' OR d.Content LIKE '%" . $keyword . "%'";
+   $posts = getFromDatabase($query);
+    $response->getBody()->write(json_encode(["status" => "200", "json" => $posts]));
+    return $response
+        ->withHeader('content-type', 'application/json')
+        ->withStatus(200);
+
+});
