@@ -7,21 +7,24 @@ $joinedTables = "(SELECT a.Posts, a.Categories, b.Authors from _categoriestopost
 
 $app->get('/posts', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
     global $joinedTables;
-    $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from " . $joinedTables;
-    $posts = getFromDatabase($query);
-    
-    $response->getBody()->write(json_encode(["status" => "200", "json" => $posts]));
-    return $response
-        ->withHeader('content-type', 'application/json')
-        ->withStatus(200);
-});
-
-$app->get('/posts/page/{num}', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
-    global $joinedTables;
-    $page_num = $args['num'];
-    $posts_per_page = 5;
-    $commencing_post = $posts_per_page * ($page_num - 1);
-    $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from " . $joinedTables . " WHERE d.ID > $commencing_post LIMIT $posts_per_page";
+    $params = $request->getQueryParams();
+    $query;
+    if(isset($params["search"])){
+        $search = $params["search"];
+        $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from " . $joinedTables . " WHERE d.Title LIKE '%" . $search ."%' OR d.Content LIKE '%" . $search . "%'";
+    }else if(isset($params["limit"]) && isset($params["after_id"])){
+        $limit = $params["limit"];
+        $after_id = $params["after_id"];
+        if(intval($limit) < 0){
+            $response->getBody()->write(json_encode(["status" => "404", "message" => "Limit can't be below 0"]));
+            return $response
+                ->withHeader('content-type', 'application/json')
+                ->withStatus(404);
+        }
+        $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from " . $joinedTables . " WHERE d.ID > $after_id LIMIT $limit";
+    }else{
+        $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from " . $joinedTables;
+    }
     $posts = getFromDatabase($query);
     
     $response->getBody()->write(json_encode(["status" => "200", "json" => $posts]));
@@ -95,16 +98,4 @@ $app->get('/posts/{id}/related', function (ServerRequestInterface $request, Resp
             ->withHeader('content-type', 'application/json')
             ->withStatus(404);
     }
-});
-  
-$app->get("/posts/search/{keyword}", function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
-$keyword = $args['keyword'];
-global $joinedTables;
-$query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from " . $joinedTables . " WHERE d.Title LIKE '%" . $keyword ."%' OR d.Content LIKE '%" . $keyword . "%'";
-   $posts = getFromDatabase($query);
-    $response->getBody()->write(json_encode(["status" => "200", "json" => $posts]));
-    return $response
-        ->withHeader('content-type', 'application/json')
-        ->withStatus(200);
-
 });
