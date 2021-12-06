@@ -20,10 +20,10 @@ $app->get('/posts', function (ServerRequestInterface $request, ResponseInterface
         }
         if(isset($params["search"])){
             $search = $params["search"];
-            $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables WHERE d.Title LIKE '%$search%' OR d.Content LIKE '%$search%' LIMIT $limit, $after";
+            $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables WHERE d.Title LIKE '%$search%' OR d.Content LIKE '%$search%' LIMIT $limit OFFSET $after";
         }
         else{
-            $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables LIMIT $limit, $after";
+            $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables LIMIT $limit OFFSET $after";
         }
     }else{
         $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables";
