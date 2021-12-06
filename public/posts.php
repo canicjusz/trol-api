@@ -9,9 +9,9 @@ $app->get('/posts', function (ServerRequestInterface $request, ResponseInterface
     global $joinedTables;
     $params = $request->getQueryParams();
     $query;
-     if(isset($params["limit"]) && isset($params["after_id"])){
+     if(isset($params["limit"]) && isset($params["after"])){
         $limit = $params["limit"];
-        $after_id = $params["after_id"];
+        $after = $params["after"];
         if(intval($limit) < 0){
             $response->getBody()->write(json_encode(["status" => "404", "message" => "Limit can't be below 0"]));
             return $response
@@ -20,9 +20,10 @@ $app->get('/posts', function (ServerRequestInterface $request, ResponseInterface
         }
         if(isset($params["search"])){
             $search = $params["search"];
-            $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables WHERE d.Title LIKE '%$search%' OR d.Content LIKE '%$search%' LIMIT $limit, $after_id";        }
+            $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables WHERE d.Title LIKE '%$search%' OR d.Content LIKE '%$search%' LIMIT $limit, $after";
+        }
         else{
-            $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables WHERE d.ID > $after_id LIMIT $limit";
+            $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables LIMIT $limit, $after";
         }
     }else{
         $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables";
