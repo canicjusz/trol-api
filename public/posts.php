@@ -9,10 +9,7 @@ $app->get('/posts', function (ServerRequestInterface $request, ResponseInterface
     global $joinedTables;
     $params = $request->getQueryParams();
     $query;
-    if(isset($params["search"])){
-        $search = $params["search"];
-        $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from " . $joinedTables . " WHERE d.Title LIKE '%" . $search ."%' OR d.Content LIKE '%" . $search . "%'";
-    }else if(isset($params["limit"]) && isset($params["after_id"])){
+     if(isset($params["limit"]) && isset($params["after_id"])){
         $limit = $params["limit"];
         $after_id = $params["after_id"];
         if(intval($limit) < 0){
@@ -21,9 +18,14 @@ $app->get('/posts', function (ServerRequestInterface $request, ResponseInterface
                 ->withHeader('content-type', 'application/json')
                 ->withStatus(404);
         }
-        $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from " . $joinedTables . " WHERE d.ID > $after_id LIMIT $limit";
+        if(isset($params["search"])){
+            $search = $params["search"];
+            $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables WHERE d.Title LIKE '%$search%' OR d.Content LIKE '%$search%' LIMIT $limit, $after_id";        }
+        else{
+            $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables WHERE d.ID > $after_id LIMIT $limit";
+        }
     }else{
-        $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from " . $joinedTables;
+        $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables";
     }
     $posts = getFromDatabase($query);
     
