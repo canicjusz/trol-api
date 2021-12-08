@@ -1,4 +1,12 @@
 -- CreateTable
+CREATE TABLE `Credentials` (
+    `Email` VARCHAR(100) NOT NULL ,
+    `Password` VARCHAR(100) NOT NULL,
+    `Has_access` BIT  NOT NULL DEFAULT 1,
+    
+    PRIMARY KEY (`Email`)
+)
+-- CreateTable
 CREATE TABLE `Authors` (
     `ID` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT ,
     `Name` VARCHAR(100) NOT NULL,
@@ -46,6 +54,7 @@ CREATE TABLE `_CategoriesToPosts` (
     UNIQUE INDEX `_CategoriesToPosts_CategoriesPosts_unique`(`Categories`, `Posts`),
     INDEX `_CategoriesToPosts_Posts_index`(`Posts`)
 );
+
 
 -- AddForeignKey
 ALTER TABLE `_AuthorsToPosts` ADD FOREIGN KEY (`Authors`) REFERENCES `Authors`(`ID`);

@@ -48,3 +48,7 @@ insert into _categoriestoposts (Categories, Posts) values (2, 7);
 insert into _categoriestoposts (Categories, Posts) values (3, 8);
 insert into _categoriestoposts (Categories, Posts) values (2, 9);
 insert into _categoriestoposts (Categories, Posts) values (3, 10);
+ --Credentials
+insert into Credentials (Email, Password) values ('trolintermeda@trol.pl', 'tajnehaslo');
+insert into Credentials (Email, Password) values ('pasjainformatki@trol.pl', 'tajnieszehaslo');
+insert into Credentials (Email, Password) values ('twojamama@trol.pl', 'najtajnieszehaslo');
