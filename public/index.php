@@ -23,9 +23,9 @@ $app->add(function ($request, $handler) {
 });
 
 require __DIR__ . '/../config/db.php';
-require __DIR__ . '/auth.php';
-require __DIR__ . '/categories.php';
-require __DIR__ . '/posts.php';
+require __DIR__ . '/../src/auth.php';
+require __DIR__ . '/../src/categories.php';
+require __DIR__ . '/../src/posts.php';
 
 $app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function ($request, $response) {
   throw new HttpNotFoundException($request);
