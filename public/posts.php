@@ -37,7 +37,7 @@ $app->get('/posts', function (ServerRequestInterface $request, ResponseInterface
 });
 
 $app->get('/posts/popular', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
-    $query = "SELECT Date AS PostDate, Title, Background from posts ORDER BY Viewcount DESC LIMIT 5";
+    $query = "SELECT Date AS PostDate, Title, Background from posts ORDER BY Viewcount DESC LIMIT 3";
     $posts = getFromDatabase($query);
 
     $response->getBody()->write(json_encode(["status" => "200", "json" => $posts]));
