@@ -30,7 +30,7 @@ $app->get('/login', function (ServerRequestInterface $request, ResponseInterface
     if(
         isset($matching_credentials[0])&&$matching_credentials[0]->Has_access=='1'
     ){
-        $future = new DateTime("now +10 minutes");
+        $future = new DateTime("now +7 days");
         $jti = base64_encode(random_bytes(10));
         $payload = [
             "jti" => $jti,
