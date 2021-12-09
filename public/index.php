@@ -3,6 +3,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Factory\AppFactory;
 use Slim\Psr7\Response;
+use Slim\Http\Request;
+use Slim\Psr7\Stream;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -26,6 +28,7 @@ require __DIR__ . '/../config/db.php';
 require __DIR__ . '/../src/auth.php';
 require __DIR__ . '/../src/categories.php';
 require __DIR__ . '/../src/posts.php';
+require __DIR__ . '/../src/images.php';
 
 $app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function ($request, $response) {
   throw new HttpNotFoundException($request);

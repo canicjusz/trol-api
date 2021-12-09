@@ -6,9 +6,9 @@ class DB {
         private $user = 'ba84dd51f09433';
         private $pass = '5de473f9';
         // private $host = 'localhost';
-        //  private $user = 'root';
-        //  private $pass = '';
-        //  private $dbname = 'rest_api';
+        // private $user = 'root';
+        // private $pass = '';
+        // private $dbname = 'rest_api';
 
         public function connect() {
             $conn_str = "mysql:host=$this->host;dbname=$this->dbname";
