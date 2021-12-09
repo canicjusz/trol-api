@@ -8,7 +8,7 @@ use Slim\Psr7\Stream;
 
 $app->get('/imgs/{name}', function  (ServerRequestInterface $request, ResponseInterface $response, array $args) {
   $name = $args['name'];
-  $path = __DIR__ . '../imgs/'.$name;
+  $path = __DIR__ . '/../imgs/'.$name;
 
   $fh = fopen($path, 'rb');
   $file_stream = new Stream($fh);
