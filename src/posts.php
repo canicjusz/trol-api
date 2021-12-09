@@ -49,7 +49,7 @@ $app->get('/posts/popular', function (ServerRequestInterface $request, ResponseI
 $app->get('/posts/{id}', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
     $id = $args['id'];
     global $joinedTables;
-    $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from " . $joinedTables . " WHERE d.ID=$id";
+    $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content, d.Viewcount, e.Name AS AuthorName, e.Avatar,e.Bio, f.Name AS CategoryTitle from " . $joinedTables . " WHERE d.ID=$id";
     $db_response = getFromDatabase($query);
 
     if(count($db_response) == 1){

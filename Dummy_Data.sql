@@ -1,9 +1,9 @@
 -- Authors
-insert into authors (ID, Name, Avatar, Bio) values (1, 'Reynard', 'https://robohash.org/occaecatietvoluptatibus.png?size=50x50&set=set1', 'Fachhochschule des Mittelstandes (FHM)');
-insert into authors (ID, Name, Avatar, Bio) values (2, 'Clemmy', 'https://robohash.org/numquamullamaut.png?size=50x50&set=set1', 'Goa University');
-insert into authors (ID, Name, Avatar, Bio) values (3, 'Angie', 'https://robohash.org/velitetculpa.png?size=50x50&set=set1', 'Universidade de Caxias do Sul');
-insert into authors (ID, Name, Avatar, Bio) values (4, 'Dominick', 'https://robohash.org/delenitinisidoloremque.png?size=50x50&set=set1', 'Mills College');
-insert into authors (ID, Name, Avatar, Bio) values (5, 'Emelina', 'https://robohash.org/voluptatumdolorfugiat.png?size=50x50&set=set1', 'Nugaal University');
+insert into authors (ID, Name, Avatar, Bio) values (1, 'Sebastian', 'pan_sebastian.png', 'Trol Intermedia');
+insert into authors (ID, Name, Avatar, Bio) values (2, 'Marcin', 'pan_marcin.png', 'Trol Intermedia');
+insert into authors (ID, Name, Avatar, Bio) values (3, 'Maciej', 'pan_maciej.png', 'SzkolaNaLesnej');
+insert into authors (ID, Name, Avatar, Bio) values (4, 'Jakub', 'pan_jakub.png', 'SzkolaNaLesnej');
+insert into authors (ID, Name, Avatar, Bio) values (5, 'Krystyna', 'pani_krystyna.png', 'SzkolaNaLesnej');
 
 -- Posts
 insert into posts (id, date, title, content, content_shortened, background, viewcount) values (1, '2021-01-31', 'Uprawa Roslin', 'super fajny tekst typu takiego no', 'super fajny', 'uprawa_roslin.jpg', 725);
