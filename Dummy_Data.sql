@@ -6,16 +6,16 @@ insert into authors (ID, Name, Avatar, Bio) values (4, 'Dominick', 'https://robo
 insert into authors (ID, Name, Avatar, Bio) values (5, 'Emelina', 'https://robohash.org/voluptatumdolorfugiat.png?size=50x50&set=set1', 'Nugaal University');
 
 -- Posts
-insert into posts (id, date, title, content, content_shortened, background, viewcount) values (1, '2021-01-31', 'uprawa roślin', 'super fajny tekst typu takiego no', 'super fajny', 'http://dummyimage.com/172x100.png/5fa2dd/ffffff', 725);
-insert into posts (id, date, title, content, content_shortened, background, viewcount) values (2, '2021-10-17', 'niewolnictwo', 'no generalnie to takie cos', 'no generalnie', 'http://dummyimage.com/205x100.png/dddddd/000000', 556);
-insert into posts (id, date, title, content, content_shortened, background, viewcount) values (3, '2021-09-17', 'lightshot', 'polecam program lightshot pan sikora tak mowil', 'polecam program', 'http://dummyimage.com/157x100.png/cc0000/ffffff', 913);
-insert into posts (id, date, title, content, content_shortened, background, viewcount) values (4, '2021-07-27', 'protesty ucznowskie na placu tiananmen', 'nigdy nie było takiej sytuacji', 'nigdy nie było', 'http://dummyimage.com/249x100.png/ff4444/ffffff', 756);
-insert into posts (id, date, title, content, content_shortened, background, viewcount) values (5, '2021-10-20', 'kochamy komunistyczną partię chin', '看眼無興且會樂構資原單關立的那乎系的各道流發候濟次', 'chiński tekst CCP', 'http://dummyimage.com/129x100.png/5fa2dd/ffffff', 797);
-insert into posts (id, date, title, content, content_shortened, background, viewcount) values (6, '2021-04-13', 'jacek kowal', 'wysadził nam repozytorium nie fajna sprawa z jego strony', 'wysadził nam repozytorium', 'http://dummyimage.com/121x100.png/dddddd/000000', 299);
-insert into posts (id, date, title, content, content_shortened, background, viewcount) values (7, '2021-05-31', 'Trol Intermedia', 'Trol Intermedia recenzja: super firma polecam cieplutko', 'Trol intermedia recenzja', 'http://dummyimage.com/232x100.png/cc0000/ffffff', 83);
-insert into posts (id, date, title, content, content_shortened, background, viewcount) values (8, '2021-10-29', 'Etap 0. Staż', 'no generalnie fajne', 'generalnie', 'http://dummyimage.com/230x100.png/cc0000/ffffff', 579);
-insert into posts (id, date, title, content, content_shortened, background, viewcount) values (9, '2021-09-04', 'Serwer Ubuntu', 'wpierw należy wpisać apt update apt upgrade', 'wpierw należy', 'http://dummyimage.com/207x100.png/ff4444/ffffff', 643);
-insert into posts (id, date, title, content, content_shortened, background, viewcount) values (10, '2021-04-12', 'Pasja Informatyki', 'Wchodzimy na strone dobrakadra.pl', 'Wchodzimy na strone', 'http://dummyimage.com/143x100.png/5fa2dd/ffffff', 35);
+insert into posts (id, date, title, content, content_shortened, background, viewcount) values (1, '2021-01-31', 'uprawa roślin', 'super fajny tekst typu takiego no', 'super fajny', 'uprawa roślin.jpg', 725);
+insert into posts (id, date, title, content, content_shortened, background, viewcount) values (2, '2021-10-17', 'niewolnictwo', 'no generalnie to takie cos', 'no generalnie', 'niewolnictwo.jpg', 556);
+insert into posts (id, date, title, content, content_shortened, background, viewcount) values (3, '2021-09-17', 'lightshot', 'polecam program lightshot pan sikora tak mowil', 'polecam program', 'lightshot.jpg', 913);
+insert into posts (id, date, title, content, content_shortened, background, viewcount) values (4, '2021-07-27', 'protesty ucznowskie na placu tiananmen', 'nigdy nie było takiej sytuacji', 'nigdy nie było', 'can.png', 756);
+insert into posts (id, date, title, content, content_shortened, background, viewcount) values (5, '2021-10-20', 'kochamy komunistyczną partię chin', '看眼無興且會樂構資原單關立的那乎系的各道流發候濟次', 'chiński tekst CCP', 'Xi_Jinping_2019.jpg', 797);
+insert into posts (id, date, title, content, content_shortened, background, viewcount) values (6, '2021-04-13', 'jacek kowal', 'wysadził nam repozytorium nie fajna sprawa z jego strony', 'wysadził nam repozytorium', 'amongus.jpg', 299);
+insert into posts (id, date, title, content, content_shortened, background, viewcount) values (7, '2021-05-31', 'Trol Intermedia', 'Trol Intermedia recenzja: super firma polecam cieplutko', 'Trol intermedia recenzja', 'trolnetermedia.jpg', 83);
+insert into posts (id, date, title, content, content_shortened, background, viewcount) values (8, '2021-10-29', 'Etap 0. Staż', 'no generalnie fajne', 'generalnie', 'staż.jpg', 579);
+insert into posts (id, date, title, content, content_shortened, background, viewcount) values (9, '2021-09-04', 'Serwer Ubuntu', 'wpierw należy wpisać apt update apt upgrade', 'wpierw należy', 'ubuntu.jpg', 643);
+insert into posts (id, date, title, content, content_shortened, background, viewcount) values (10, '2021-04-12', 'Pasja Informatyki', 'Wchodzimy na strone dobrakadra.pl', 'Wchodzimy na strone', 'pasjainformatyki.jpg', 35);
 
 
 -- categories
