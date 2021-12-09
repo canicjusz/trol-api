@@ -6,14 +6,14 @@ insert into authors (ID, Name, Avatar, Bio) values (4, 'Dominick', 'https://robo
 insert into authors (ID, Name, Avatar, Bio) values (5, 'Emelina', 'https://robohash.org/voluptatumdolorfugiat.png?size=50x50&set=set1', 'Nugaal University');
 
 -- Posts
-insert into posts (id, date, title, content, content_shortened, background, viewcount) values (1, '2021-01-31', 'Uprawa Roslin', 'super fajny tekst typu takiego no', 'super fajny', 'uprawa_roślin.jpg', 725);
+insert into posts (id, date, title, content, content_shortened, background, viewcount) values (1, '2021-01-31', 'Uprawa Roslin', 'super fajny tekst typu takiego no', 'super fajny', 'uprawa_roslin.jpg', 725);
 insert into posts (id, date, title, content, content_shortened, background, viewcount) values (2, '2021-10-17', 'Niewolnictwo', 'no generalnie to takie cos', 'no generalnie', 'niewolnictwo.jpg', 556);
 insert into posts (id, date, title, content, content_shortened, background, viewcount) values (3, '2021-09-17', 'Lightshot', 'polecam program lightshot pan sikora tak mowil', 'polecam program', 'lightshot.jpg', 913);
 insert into posts (id, date, title, content, content_shortened, background, viewcount) values (4, '2021-07-27', 'Protesty Ucznowskie na Placu Tiananmen', 'nigdy nie było takiej sytuacji', 'nigdy nie było', 'cn.png', 756);
 insert into posts (id, date, title, content, content_shortened, background, viewcount) values (5, '2021-10-20', 'Kochamy Komunistyczna Partie Chin', '看眼無興且會樂構資原單關立的那乎系的各道流發候濟次', 'chinski tekst CCP', 'Xi_Jinping_2019.jpg', 797);
-insert into posts (id, date, title, content, content_shortened, background, viewcount) values (6, '2021-04-13', 'Jacek Kowal', 'wysadził nam repozytorium nie fajna sprawa z jego strony', 'wysadził nam repozytorium', 'amongus.jpg', 299);
-insert into posts (id, date, title, content, content_shortened, background, viewcount) values (7, '2021-05-31', 'Trol Intermedia', 'Trol Intermedia recenzja: super firma polecam cieplutko', 'Trol intermedia recenzja', 'TrolInetermedia.jpg', 83);
-insert into posts (id, date, title, content, content_shortened, background, viewcount) values (8, '2021-10-29', 'Etap 0. Staż', 'no generalnie fajne', 'generalnie', 'staż.jpg', 579);
+insert into posts (id, date, title, content, content_shortened, background, viewcount) values (6, '2021-04-13', 'Jacek Kowal', 'wysadzil nam repozytorium nie fajna sprawa z jego strony', 'wysadzil nam repozytorium', 'amongus.jpg', 299);
+insert into posts (id, date, title, content, content_shortened, background, viewcount) values (7, '2021-05-31', 'Trol Intermedia', 'Trol Intermedia recenzja: super firma polecam cieplutko', 'Trol intermedia recenzja', 'TrolIntermedia.jpg', 83);
+insert into posts (id, date, title, content, content_shortened, background, viewcount) values (8, '2021-10-29', 'Etap 0. Staż', 'no generalnie fajne', 'generalnie', 'staz.jpg', 579);
 insert into posts (id, date, title, content, content_shortened, background, viewcount) values (9, '2021-09-04', 'Serwer Ubuntu', 'wpierw należy wpisać apt update apt upgrade', 'wpierw nalezy', 'ubuntu.jpg', 643);
 insert into posts (id, date, title, content, content_shortened, background, viewcount) values (10, '2021-04-12', 'Pasja Informatyki', 'Wchodzimy na strone dobrakadra.pl', 'Wchodzimy na strone', 'pasjainformatyki.jpg', 35);
 
