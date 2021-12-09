@@ -8,7 +8,7 @@ $secret = "supersecret";
 
 $app->add(new Tuupola\Middleware\JwtAuthentication([
     "secure" => false,
-    "path" => ["/api/posts", "/api/categories", "/api/imgs"], 
+    "path" => ["/api/posts", "/api/categories"], 
     "algorithm" => ["HS256"],
     "secret" => $secret,
     "error" => function ($response, $arguments) {
