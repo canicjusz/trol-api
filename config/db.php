@@ -20,11 +20,17 @@ class DB {
 
 }
 
-function getFromDatabase($query){
+function getFromDatabase($query, $parameters = null){
     $db = new DB();
     $conn = $db->connect();
 
-    $stmt = $conn->query($query);
+    if($parameters != null){
+        $sth = $conn->prepare($query);
+        $stmt->execute($parameters)
+    }else{
+        $stmt = $conn->query($query);
+    }
+    
 
     // nie wiem czy to potrzebne ale niech zostanie
     $db = null;
