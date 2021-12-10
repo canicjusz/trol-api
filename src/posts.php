@@ -20,13 +20,13 @@ $app->get('/posts', function (ServerRequestInterface $request, ResponseInterface
         }
         if(isset($params["search"])){
             $search = $params["search"];
-            $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables WHERE d.Title LIKE '%$search%' OR d.Content LIKE '%$search%' LIMIT $limit OFFSET $after";
+            $query = "SELECT d.ID, d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables WHERE d.Title LIKE '%$search%' OR d.Content LIKE '%$search%' LIMIT $limit OFFSET $after";
         }
         else{
-            $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables LIMIT $limit OFFSET $after";
+            $query = "SELECT d.ID, d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables LIMIT $limit OFFSET $after";
         }
     }else{
-        $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables";
+        $query = "SELECT d.ID, d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables";
     }
     $posts = getFromDatabase($query);
     
@@ -37,7 +37,7 @@ $app->get('/posts', function (ServerRequestInterface $request, ResponseInterface
 });
 
 $app->get('/posts/popular', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
-    $query = "SELECT Date AS PostDate, Title, Background from posts ORDER BY Viewcount DESC LIMIT 3";
+    $query = "SELECT ID, Date AS PostDate, Title, Background from posts ORDER BY Viewcount DESC LIMIT 3";
     $posts = getFromDatabase($query);
 
     $response->getBody()->write(json_encode(["status" => "200", "json" => $posts]));
@@ -87,7 +87,7 @@ $app->get('/posts/{id}/related', function (ServerRequestInterface $request, Resp
                 $secondId = $postsIds[1]->Posts;
                 $idsForQuery .= " OR ID=$secondId";
             }
-            $queryPosts = "SELECT Background, Title FROM `posts` $idsForQuery";
+            $queryPosts = "SELECT ID Background, Title FROM `posts` $idsForQuery";
             $posts = getFromDatabase($queryPosts);
         }
     
