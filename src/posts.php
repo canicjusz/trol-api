@@ -25,7 +25,7 @@ $app->get('/posts', function (ServerRequestInterface $request, ResponseInterface
             $query = $querybase . " WHERE d.Title LIKE '%$search%' OR d.Content LIKE '%$search%' LIMIT $limit OFFSET $offset";
         }
         else{
-            $query = $querybase . " LIMIT $limit OFFSET $offset";
+            $query = $querybase . " ORDER BY d.date DESC LIMIT $limit OFFSET $offset";
         }
     }else{
         $query = $querybase;
