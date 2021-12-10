@@ -9,24 +9,26 @@ $app->get('/posts', function (ServerRequestInterface $request, ResponseInterface
     global $joinedTables;
     $params = $request->getQueryParams();
     $query;
-     if(isset($params["limit"]) && isset($params["after"])){
+     if(isset($params["limit"]) && isset($params["offset"])){
         $limit = $params["limit"];
-        $after = $params["after"];
+        $offset = $params["offset"];
         if(intval($limit) < 0){
             $response->getBody()->write(json_encode(["status" => "404", "message" => "Limit can't be below 0"]));
             return $response
                 ->withHeader('content-type', 'application/json')
                 ->withStatus(404);
+
         }
+        $querybase = "SELECT d.ID, d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables";
         if(isset($params["search"])){
             $search = $params["search"];
-            $query = "SELECT d.ID, d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables WHERE d.Title LIKE '%$search%' OR d.Content LIKE '%$search%' LIMIT $limit OFFSET $after";
+            $query = $querybase . " WHERE d.Title LIKE '%$search%' OR d.Content LIKE '%$search%' LIMIT $limit OFFSET $offset";
         }
         else{
-            $query = "SELECT d.ID, d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables LIMIT $limit OFFSET $after";
+            $query = $querybase . " LIMIT $limit OFFSET $offset";
         }
     }else{
-        $query = "SELECT d.ID, d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables";
+        $query = $querybase;
     }
     $posts = getFromDatabase($query);
     
