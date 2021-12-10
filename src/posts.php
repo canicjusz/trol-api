@@ -87,7 +87,7 @@ $app->get('/posts/{id}/related', function (ServerRequestInterface $request, Resp
                 $secondId = $postsIds[1]->Posts;
                 $idsForQuery .= " OR ID=$secondId";
             }
-            $queryPosts = "SELECT ID Background, Title FROM `posts` $idsForQuery";
+            $queryPosts = "SELECT ID, Background, Title FROM `posts` $idsForQuery";
             $posts = getFromDatabase($queryPosts);
         }
     
