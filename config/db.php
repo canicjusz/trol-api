@@ -26,7 +26,7 @@ function getFromDatabase($query, $parameters = null){
 
     if($parameters != null){
         $sth = $conn->prepare($query);
-        $stmt->execute($parameters)
+        $stmt->execute($parameters);
     }else{
         $stmt = $conn->query($query);
     }
