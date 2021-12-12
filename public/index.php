@@ -5,6 +5,7 @@ use Slim\Factory\AppFactory;
 use Slim\Psr7\Response;
 use Slim\Http\Request;
 use Slim\Psr7\Stream;
+use Slim\Exception\HttpNotFoundException;
 
 require __DIR__ . '/../vendor/autoload.php';
 
