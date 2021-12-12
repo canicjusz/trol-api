@@ -41,7 +41,12 @@ $app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function ($
 // ładne komunikaty błędów ;)
 // pierwszy argument powinien być ustawiony na false w środowisku produkcyjnym
 // w prawdziwym projekcie, pewnie trzymalibyśmy to ustawienie w zmiennej środowiskowej
+// [edit] dodałam jednak taką małą zmienną co imituje nam rozpoznawanie środowiska dev ;)
 // - N.
-$app->addErrorMiddleware(true, true, true);
+$display_errors = false;
+if (!empty($_SERVER['HTTP_HOST']) AND stripos($_SERVER['HTTP_HOST'], 'localhost') !== false) {
+  $display_errors = true;
+}
+$app->addErrorMiddleware($display_errors, true, true);
 
 $app->run();
