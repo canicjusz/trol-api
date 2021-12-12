@@ -9,6 +9,9 @@ use Slim\Psr7\Stream;
 require __DIR__ . '/../vendor/autoload.php';
 
 $app = AppFactory::create();
+
+$app->addRoutingMiddleware();
+
 $app->setBasePath("/api");
 
 $app->options('/{routes:.+}', function ($request, $response, $args) {
@@ -33,5 +36,11 @@ require __DIR__ . '/../src/images.php';
 $app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function ($request, $response) {
   throw new HttpNotFoundException($request);
 });
+
+// ładne komunikaty błędów ;)
+// pierwszy argument powinien być ustawiony na false w środowisku produkcyjnym
+// w prawdziwym projekcie, pewnie trzymalibyśmy to ustawienie w zmiennej środowiskowej
+// - N.
+$app->addErrorMiddleware(true, true, true);
 
 $app->run();
