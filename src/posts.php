@@ -8,6 +8,7 @@ $joinedTables = "(SELECT a.Posts, a.Categories, b.Authors from _categoriestopost
 $app->get('/posts', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
     global $joinedTables;
     $params = $request->getQueryParams();
+    $querybase = "SELECT d.ID, d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables";
     $query;
      if(isset($params["limit"]) && isset($params["offset"])){
         $limit = $params["limit"];
@@ -19,7 +20,6 @@ $app->get('/posts', function (ServerRequestInterface $request, ResponseInterface
                 ->withStatus(404);
 
         }
-        $querybase = "SELECT d.ID, d.Date AS PostDate, d.Title, d.Background, d.Content_shortened, d.Viewcount, e.Name AS AuthorName, e.Avatar, f.Name AS CategoryTitle from $joinedTables";
         if(isset($params["search"])){
             $search = $params["search"];
             $query = $querybase . " WHERE d.Title LIKE '%$search%' OR d.Content LIKE '%$search%' LIMIT $limit OFFSET $offset";
