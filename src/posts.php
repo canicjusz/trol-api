@@ -22,15 +22,19 @@ $app->get('/posts', function (ServerRequestInterface $request, ResponseInterface
         }
         if(isset($params["search"])){
             $search = $params["search"];
-            $query = $querybase . " WHERE d.Title LIKE '%$search%' OR d.Content LIKE '%$search%' LIMIT $limit OFFSET $offset";
+            $query = $querybase . " WHERE d.Title LIKE ? OR d.Content LIKE ? LIMIT ? OFFSET ?";
+            $parameters = ["%$search%", "%$search%", intval($limit), intval($offset)];
+            $posts = getFromDatabase($query, $parameters);
         }
         else{
-            $query = $querybase . " ORDER BY d.date DESC LIMIT $limit OFFSET $offset";
+            $query = $querybase . " ORDER BY d.date DESC LIMIT ? OFFSET ?";
+            $parameters = [intval($limit), intval($offset)];
+            $posts = getFromDatabase($query, $parameters);
         }
     }else{
         $query = $querybase;
+        $posts = getFromDatabase($query);
     }
-    $posts = getFromDatabase($query);
     
     $response->getBody()->write(json_encode(["status" => "200", "json" => $posts]));
     return $response
@@ -51,8 +55,9 @@ $app->get('/posts/popular', function (ServerRequestInterface $request, ResponseI
 $app->get('/posts/{id}', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
     $id = $args['id'];
     global $joinedTables;
-    $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content, d.Viewcount, e.Name AS AuthorName, e.Avatar,e.Bio, f.Name AS CategoryTitle from " . $joinedTables . " WHERE d.ID=$id";
-    $db_response = getFromDatabase($query);
+    $query = "SELECT d.Date AS PostDate, d.Title, d.Background, d.Content, d.Viewcount, e.Name AS AuthorName, e.Avatar,e.Bio, f.Name AS CategoryTitle from " . $joinedTables . " WHERE d.ID=?";
+    $parameters = [intval($id)];
+    $db_response = getFromDatabase($query, $parameters);
 
     if(count($db_response) == 1){
         $post=$db_response[0];
@@ -71,13 +76,14 @@ $app->get('/posts/{id}', function (ServerRequestInterface $request, ResponseInte
 $app->get('/posts/{id}/related', function (ServerRequestInterface $request, ResponseInterface $response, array $args) {
     $id = $args['id'];
 
-    $queryCategoriesId = "SELECT Categories FROM `_categoriestoposts` WHERE posts=$id";
-    $categoriesIdObj = getFromDatabase($queryCategoriesId);
+    $queryCategoriesId = "SELECT Categories FROM `_categoriestoposts` WHERE posts=?";
+    $parameters = [intval($id)];
+    $categoriesIdObj = getFromDatabase($queryCategoriesId, $parameters);
 
     if(count($categoriesIdObj) == 1){
         $categoriesId = $categoriesIdObj[0]->Categories;
-        $queryPostsId = "SELECT Posts FROM `_categoriestoposts` WHERE categories=$categoriesId AND NOT Posts=$id LIMIT 2";
-        $postsIds = getFromDatabase($queryPostsId);
+        $queryPostsId = "SELECT Posts FROM `_categoriestoposts` WHERE categories=$categoriesId AND NOT Posts=? LIMIT 2";
+        $postsIds = getFromDatabase($queryPostsId, $parameters);
     
         $postsLength = count($postsIds);
         //moze byc max 2 postow wyswietlanych z ta sama kategoria wiec nie ma po co wymyslac jakiejs pentli
