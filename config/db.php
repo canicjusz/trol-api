@@ -25,13 +25,15 @@ function getFromDatabase($query, $parameters = null){
     $conn = $db->connect();
 
     if($parameters != null){
-        $sth = $conn->prepare($query);
-        $stmt->execute($parameters);
+        $stmt = $conn->prepare($query);
+        for($i = 0; $i < count($parameters); $i++){
+            $stmt->bindParam($i + 1, $parameters[$i], is_string($parameters[$i]) ? PDO::PARAM_STR : PDO::PARAM_INT);
+        }
+        $stmt->execute();
     }else{
         $stmt = $conn->query($query);
     }
     
-
     // nie wiem czy to potrzebne ale niech zostanie
     $db = null;
     return $stmt->fetchALL(PDO::FETCH_OBJ);
