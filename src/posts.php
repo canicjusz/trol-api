@@ -82,21 +82,24 @@ $app->get('/posts/{id}/related', function (ServerRequestInterface $request, Resp
 
     if(count($categoriesIdObj) == 1){
         $categoriesId = $categoriesIdObj[0]->Categories;
-        $queryPostsId = "SELECT Posts FROM `_categoriestoposts` WHERE categories=$categoriesId AND NOT Posts=? LIMIT 2";
-        $postsIds = getFromDatabase($queryPostsId, $parameters);
+        $queryPostsId = "SELECT Posts FROM `_categoriestoposts` WHERE categories=? AND NOT Posts=? LIMIT 2";
+        $postsIds = getFromDatabase($queryPostsId, [$categoriesId, intval($id)]);
     
         $postsLength = count($postsIds);
         //moze byc max 2 postow wyswietlanych z ta sama kategoria wiec nie ma po co wymyslac jakiejs pentli
         //trzeba pozniej wymyslic lepsze nazwy do tych zmiennyc
+        $idsForQuery = "";
         if($postsLength >= 1){
             $firstId = $postsIds[0]->Posts;
-            $idsForQuery = "WHERE ID=$firstId";
+            $idsForQuery .= "WHERE ID=?";
+            $posts_parameters = [intval($firstId)];
             if($postsLength == 2){
                 $secondId = $postsIds[1]->Posts;
-                $idsForQuery .= " OR ID=$secondId";
+                $idsForQuery .= " OR ID=?";
+                array_push($posts_parameters, intval($secondId));
             }
-            $queryPosts = "SELECT ID, Background, Title FROM `posts` $idsForQuery";
-            $posts = getFromDatabase($queryPosts);
+            $queryPosts = "SELECT ID, Background, Title FROM `posts` ". $idsForQuery;
+            $posts = getFromDatabase($queryPosts, isset($posts_parameters) ? $posts_parameters :null);
         }
     
         $response->getBody()->write(json_encode(["status" => "200", "json" => $posts ?? []]));
