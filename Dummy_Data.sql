@@ -39,15 +39,15 @@ insert into _authorstoposts (Authors, Posts) values (2, 10);
 
 -- CategoriesToPosts
 insert into _categoriestoposts (Categories, Posts) values (5, 1);
-insert into _categoriestoposts (Categories, Posts) values (2, 2);
-insert into _categoriestoposts (Categories, Posts) values (5, 3);
+insert into _categoriestoposts (Categories, Posts) values (3, 2);
+insert into _categoriestoposts (Categories, Posts) values (2, 3);
 insert into _categoriestoposts (Categories, Posts) values (4, 4);
 insert into _categoriestoposts (Categories, Posts) values (4, 5);
 insert into _categoriestoposts (Categories, Posts) values (1, 6);
 insert into _categoriestoposts (Categories, Posts) values (2, 7);
 insert into _categoriestoposts (Categories, Posts) values (3, 8);
 insert into _categoriestoposts (Categories, Posts) values (2, 9);
-insert into _categoriestoposts (Categories, Posts) values (3, 10);
+insert into _categoriestoposts (Categories, Posts) values (2, 10);
  --Credentials
 insert into Credentials (Email, Password) values ('trolintermeda@trol.pl', 'tajnehaslo');
 insert into Credentials (Email, Password) values ('pasjainformatki@trol.pl', 'tajnieszehaslo');
